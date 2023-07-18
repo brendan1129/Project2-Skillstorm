@@ -1,0 +1,20 @@
+spring:
+    datasource:
+        #driver-class-name: com.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/tax_prep
+        username: postgres
+        password: postgres
+    output:
+        ansi:
+            enabled: ALWAYS
+    jpa:
+
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        #database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+    port: 8080
