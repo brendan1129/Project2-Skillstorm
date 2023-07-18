@@ -3,7 +3,7 @@ spring:
         #driver-class-name: com.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/tax_prep
         username: postgres
-        password: postgres
+        password: KojiSS
     output:
         ansi:
             enabled: ALWAYS
