@@ -133,6 +133,14 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
+    // public Address getAddress() {
+    // return address;
+    // }
+
+    // public void setAddress(Address address) {
+    // this.address = address;
+    // }
+
     public Enum<MaritalStatus> getMaritalStatus() {
         return maritalStatus;
     }
