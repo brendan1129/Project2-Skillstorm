@@ -15,40 +15,59 @@ import com.skillstorm.group8.taxprep.forms.Form1099;
 import com.skillstorm.group8.taxprep.forms.FormW2;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
 
+    /* ATTRIBUTES */
+
+    // Primary key
     @Id
     @Column(name = "email", length = 50, unique = true)
     private String email;
 
+    // Social Security Number
     @Column(name = "ssn", length = 11, unique = true)
     private String ssn;
 
+    // User's first name
     @Column(name = "first_name")
     private String firstName;
 
+    // User's last name
     @Column(name = "last_name")
     private String lastName;
 
+    // User's password
     @Column(name = "password")
     private String password;
 
+    // List of income from Form 1099
     @OneToMany
     @JoinColumn(name = "ssn")
-    List<Form1099> incomeFrom1099;
+    private List<Form1099> incomeFrom1099;
 
+    // List of income from Form W2
     @OneToMany
     @JoinColumn(name = "ssn")
-    List<FormW2> incomeFromW2;
+    private List<FormW2> incomeFromW2;
 
-    // Address address;
-
+    // User's date of birth
     @Column(name = "dob")
-    Date dateOfBirth;
+    private Date dateOfBirth;
 
+    // Address address; 
+
+    // User's marital status
     @Column(name = "marital_status")
     private Enum<MaritalStatus> maritalStatus;
+
+    /* CONSTRUCTORS */
+
+    public User() {
+        // Default constructor
+    }
+
+    /* GETTERS AND SETTERS */
 
     public String getEmail() {
         return email;
@@ -114,16 +133,6 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Enum<MaritalStatus> getMaritalStatus() {
-        return maritalStatus;
-    }
-
-    public void setMaritalStatus(Enum<MaritalStatus> maritalStatus) {
-        this.maritalStatus = maritalStatus;
-    }
-
-    
-
     // public Address getAddress() {
     // return address;
     // }
@@ -132,4 +141,11 @@ public class User {
     // this.address = address;
     // }
 
+    public Enum<MaritalStatus> getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(Enum<MaritalStatus> maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
 }

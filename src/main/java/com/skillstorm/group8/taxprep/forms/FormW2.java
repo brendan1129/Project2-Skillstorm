@@ -12,20 +12,34 @@ import com.skillstorm.group8.taxprep.models.Address;
 @Table(name = "FormW2s")
 public class FormW2 extends IncomeSource {
 
+    /* ATTRIBUTES */
+
+    // Employer's Employer Identification Number (EIN)
     @Id
     @Column(name = "EIN", length = 10)
     private String employerEIN;
 
+    // Amount withheld from income
     @Column(name = "withheld")
     private double amountWithheld;
 
     //Address payerAddress;
 
+    // Payer's first name
     @Column(name = "first_name")
-    String payerFirstName;
+    private String payerFirstName;
 
+    // Payer's last name
     @Column(name = "last_name")
-    String payerLastName;
+    private String payerLastName;
+
+    /* CONSTRUCTORS */
+
+    public FormW2() {
+        //Default Constructor
+    }
+
+    /* GETTERS AND SETTERS */
 
     public String getEmployerEIN() {
         return employerEIN;
