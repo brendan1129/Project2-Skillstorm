@@ -3,6 +3,7 @@ package com.skillstorm.group8.taxprep.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.skillstorm.group8.taxprep.IncomeSource.IncomeSource;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.skillstorm.group8.taxprep.forms.Form1099;
 import com.skillstorm.group8.taxprep.forms.FormW2;
 
@@ -42,20 +43,20 @@ public class User {
     private String password;
 
     // List of income from Form 1099
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ssn")
     private List<Form1099> incomeFrom1099;
 
-    // List of income from Form W2
+      // List of income from Form W2
     @OneToMany
     @JoinColumn(name = "ssn")
     private List<FormW2> incomeFromW2;
-
-    // User's date of birth
+  
+  // Address address;
+  
     @Column(name = "dob")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
-
-    // Address address; 
 
     // User's marital status
     @Column(name = "marital_status")
