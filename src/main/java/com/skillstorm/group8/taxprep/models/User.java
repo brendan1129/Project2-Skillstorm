@@ -62,7 +62,7 @@ public class User {
 
     // User's marital status
     @Column(name = "marital_status")
-    //@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
     /* CONSTRUCTORS */

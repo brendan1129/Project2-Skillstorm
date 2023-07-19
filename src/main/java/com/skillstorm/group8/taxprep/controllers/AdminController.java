@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,4 +50,15 @@ public class AdminController {
         adminService.deleteAdmin(admin);
         return ResponseEntity.noContent().build();
     }
+
+    // Update an admin by ID
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Admin> updateAdmin(@PathVariable int id, @Valid @RequestBody Admin updatedAdmin) {
+        Admin updatedAdminResult = adminService.updateAdmin(id, updatedAdmin);
+        if (updatedAdminResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedAdminResult);
+    }
+
 }

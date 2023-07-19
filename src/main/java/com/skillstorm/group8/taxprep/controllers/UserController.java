@@ -37,6 +37,42 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
+    // Creates a new user
+    @PostMapping("/user")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        // Save the user
+        userService.saveUser(user);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    // Deletes a user
+    @DeleteMapping("/user")
+    public ResponseEntity<User> deleteUser(@RequestBody User user) {
+        // Deletes the user
+        userService.deleteUser(user);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Update a user by email
+    @PutMapping("/user/{email}")
+    public ResponseEntity<User> updateUser(@PathVariable String email, @Valid @RequestBody User updatedUser) {
+        User updatedUserResult = userService.updateUser(email, updatedUser);
+        if (updatedUserResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedUserResult);
+    }
+
+    // Creates a new user
+    @PostMapping("/user/{maritalStatusString}")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
+        User newUser = user;
+        newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
+        // Save the user
+        userService.saveUser(user);
+        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+    }
+
     // Finds a user by their email
     @GetMapping("/email/{email}")
     public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
@@ -64,24 +100,6 @@ public class UserController {
         // myList.add(123456789);
         // User newUser = userService.saveUser(user, myList);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-    }
-
-    // Creates a new user
-    @PostMapping("/user/{maritalStatusString}")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
-        User newUser = user;
-        newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
-        // Save the user
-        userService.saveUser(user);
-        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-    }
-
-    // Deletes a user
-    @DeleteMapping("/user")
-    public ResponseEntity<User> deleteUser(@RequestBody User user) {
-        // Deletes the user
-        userService.deleteUser(user);
-        return ResponseEntity.noContent().build();
     }
 
 }
