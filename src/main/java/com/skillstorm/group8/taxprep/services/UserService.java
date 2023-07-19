@@ -15,10 +15,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    // Retrieves a list of all users
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
+  
+    public User findUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent())
+            return user.get();
 
+        return null;
+    }
+  
     public User saveUser(User user, List<Integer> list) {
         // if (user.getIncomeFrom1099().size() > 0) {
         //     for (int i = 0; i < user.getIncomeFrom1099().size(); i++) {
@@ -34,15 +43,13 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
-    public User findUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if (user.isPresent())
-            return user.get();
-
-        return null;
+  
+    // Saves a user
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
+    // Deletes a user
     public void deleteUser(User user) {
         userRepository.delete(user);
     }

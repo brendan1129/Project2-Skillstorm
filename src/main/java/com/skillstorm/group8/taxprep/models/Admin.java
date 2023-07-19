@@ -11,15 +11,51 @@ import javax.persistence.Table;
 @Table(name = "ADMINS")
 public class Admin {
     
+    /* ATTRIBUTES */
+
+    // Primary key
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    // Admin's first name
     @Column(name = "first_name")
     private String firstName;
 
+    // Admin's last name
     @Column(name = "last_name")
     private String lastName;
 
+    /* CONSTRUCTORS */
+
+    public Admin() {
+        // Default constructor
+    }
+
+    /* GETTERS AND SETTERS */
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

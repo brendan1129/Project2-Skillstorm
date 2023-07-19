@@ -12,17 +12,30 @@ import com.skillstorm.group8.taxprep.models.Address;
 @Table(name = "Form1099s")
 public class Form1099 extends IncomeSource {
 
+    /* ATTRIBUTES */
+
+    // Payer's Tax Identification Number (TIN)
     @Id
     @Column(name = "TIN", length = 9)
     private String payerTIN;
 
+    // Amount withheld from income
     @Column(name = "withheld")
     private double amountWithheld;
 
     //Address employerAddress;
 
+    // Employer's name
     @Column(name = "name")
-    String employerName;
+    private String employerName;
+
+    /* CONSTRUCTORS */
+
+    public Form1099() {
+        // Default constructor
+    }
+
+    /* GETTERS AND SETTERS */
 
     public String getPayerTIN() {
         return payerTIN;
