@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillstorm.group8.taxprep.models.MaritalStatus;
 import com.skillstorm.group8.taxprep.models.User;
 import com.skillstorm.group8.taxprep.services.UserService;
 
@@ -52,20 +53,26 @@ public class UserController {
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
-    // Updates a user with the provided response body
-    @PutMapping("/user/updateUser")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        List<Integer> myList = new ArrayList<>();
-        myList.add(123456789);
-        User newUser = userService.saveUser(user, myList);
+    // Updates a user with the provided response body and a path variable for the ENUM maritalStatus
+    @PutMapping("/update-user/{maritalStatusString}")
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
+        User newUser = user;
+        newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
+        // Save the user
+        userService.saveUser(user);
+        // List<Integer> myList = new ArrayList<>();
+        // myList.add(123456789);
+        // User newUser = userService.saveUser(user, myList);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
     // Creates a new user
-    @PostMapping("/user")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    @PostMapping("/user/{maritalStatusString}")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
+        User newUser = user;
+        newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
         // Save the user
-        User newUser = userService.saveUser(user);
+        userService.saveUser(user);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 

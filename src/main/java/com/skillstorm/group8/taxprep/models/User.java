@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -60,7 +62,8 @@ public class User {
 
     // User's marital status
     @Column(name = "marital_status")
-    private Enum<MaritalStatus> maritalStatus;
+    //@Enumerated(EnumType.STRING)
+    private MaritalStatus maritalStatus;
 
     /* CONSTRUCTORS */
 
@@ -142,11 +145,11 @@ public class User {
     // this.address = address;
     // }
 
-    public Enum<MaritalStatus> getMaritalStatus() {
+    public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(Enum<MaritalStatus> maritalStatus) {
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 }
