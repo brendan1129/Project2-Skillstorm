@@ -36,40 +36,43 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
-      @GetMapping("/email/{email}")
+    // Finds a user by their email
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
         User user = userService.findUserByEmail(email);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
-  
-      @PostMapping("/user2")
+
+    // Adds a user with a W2 and 1099
+    @PostMapping("/user2")
     public ResponseEntity<User> createUser2(@Valid @RequestBody User user) {
         List<Integer> myList = new ArrayList<>();
         myList.add(123456789);
         User newUser = userService.saveUser(user, myList);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
-  
-      @PutMapping("/user/updateUser")
+
+    // Updates a user with the provided response body
+    @PutMapping("/user/updateUser")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         List<Integer> myList = new ArrayList<>();
         myList.add(123456789);
         User newUser = userService.saveUser(user, myList);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
-  
+
     // Creates a new user
-    @PostMapping("/user") 
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {         
+    @PostMapping("/user")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         // Save the user
         User newUser = userService.saveUser(user);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
     // Deletes a user
-    @DeleteMapping("/user") 
+    @DeleteMapping("/user")
     public ResponseEntity<User> deleteUser(@RequestBody User user) {
-        // Deletes the user  
+        // Deletes the user
         userService.deleteUser(user);
         return ResponseEntity.noContent().build();
     }

@@ -23,7 +23,7 @@ public class Form1099 extends IncomeSource {
     @Column(name = "withheld")
     private double amountWithheld;
 
-    //Address employerAddress;
+    // Address employerAddress;
 
     // Employer's name
     @Column(name = "name")
@@ -54,11 +54,11 @@ public class Form1099 extends IncomeSource {
     }
 
     // public Address getEmployerAddress() {
-    //     return employerAddress;
+    // return employerAddress;
     // }
 
     // public void setEmployerAddress(Address employerAddress) {
-    //     this.employerAddress = employerAddress;
+    // this.employerAddress = employerAddress;
     // }
 
     public String getEmployerName() {

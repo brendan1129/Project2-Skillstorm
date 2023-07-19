@@ -23,7 +23,7 @@ public class FormW2 extends IncomeSource {
     @Column(name = "withheld")
     private double amountWithheld;
 
-    //Address payerAddress;
+    // Address payerAddress;
 
     // Payer's first name
     @Column(name = "first_name")
@@ -36,7 +36,7 @@ public class FormW2 extends IncomeSource {
     /* CONSTRUCTORS */
 
     public FormW2() {
-        //Default Constructor
+        // Default Constructor
     }
 
     /* GETTERS AND SETTERS */
@@ -58,11 +58,11 @@ public class FormW2 extends IncomeSource {
     }
 
     // public Address getPayerAddress() {
-    //     return payerAddress;
+    // return payerAddress;
     // }
 
     // public void setPayerAddress(Address payerAddress) {
-    //     this.payerAddress = payerAddress;
+    // this.payerAddress = payerAddress;
     // }
 
     public String getPayerFirstName() {

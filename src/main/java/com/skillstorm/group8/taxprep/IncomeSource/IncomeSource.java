@@ -4,5 +4,5 @@ public abstract class IncomeSource {
 
     double amount;
     String ssn;
-    
+
 }

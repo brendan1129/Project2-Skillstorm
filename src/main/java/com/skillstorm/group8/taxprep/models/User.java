@@ -47,13 +47,13 @@ public class User {
     @JoinColumn(name = "ssn")
     private List<Form1099> incomeFrom1099;
 
-      // List of income from Form W2
+    // List of income from Form W2
     @OneToMany
     @JoinColumn(name = "ssn")
     private List<FormW2> incomeFromW2;
-  
-  // Address address;
-  
+
+    // Address address;
+
     @Column(name = "dob")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;

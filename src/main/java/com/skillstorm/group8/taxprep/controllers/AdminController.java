@@ -34,15 +34,15 @@ public class AdminController {
     }
 
     // Creates a new admin
-    @PostMapping("/admin") 
-    public ResponseEntity<Admin> createAdmin(@Valid @RequestBody Admin admin) {         
+    @PostMapping("/admin")
+    public ResponseEntity<Admin> createAdmin(@Valid @RequestBody Admin admin) {
         // Save the admin
         Admin newAdmin = adminService.saveAdmin(admin);
         return new ResponseEntity<Admin>(newAdmin, HttpStatus.CREATED);
     }
 
     // Deletes an admin
-    @DeleteMapping("/admin") 
+    @DeleteMapping("/admin")
     public ResponseEntity<Admin> deleteAdmin(@RequestBody Admin admin) {
         // Deletes the admin
         adminService.deleteAdmin(admin);
