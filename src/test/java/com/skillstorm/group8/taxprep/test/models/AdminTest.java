@@ -10,7 +10,7 @@ public class AdminTest {
 
     // Test constructor, getter and setter of Admin class
     @Test
-    public void testCreatedAdmin() {
+    public void testCreateAdmin() {
         Admin admin = new Admin();
         admin.setFirstName("John");
         admin.setLastName("Doe");
@@ -18,6 +18,6 @@ public class AdminTest {
         assertNotNull(admin);
         assertEquals("John", admin.getFirstName());
         assertEquals("Doe", admin.getLastName());
-        System.out.println("Create Admin Test Passed!");
+        System.out.println("testCreateAdmin Passed!");
     }
 }

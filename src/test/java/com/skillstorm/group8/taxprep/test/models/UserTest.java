@@ -11,7 +11,7 @@ import com.skillstorm.group8.taxprep.models.User;
 
 public class UserTest {
 
-    // Test getters and setters of basic fields
+    // Test constructor, getter and setter of basic fields in User
     @Test
     public void testCreateUser() {
         User user = new User();
@@ -27,7 +27,7 @@ public class UserTest {
         assertEquals("John", user.getFirstName());
         assertEquals("Doe", user.getLastName());
         assertEquals("password", user.getPassword());
-        System.out.println("Create User Test Passed!");
+        System.out.println("testCreateUser Passed!");
     }
     // Test getters and setters of MaritalStatus enum
     @Test
@@ -36,7 +36,7 @@ public class UserTest {
         user.setMaritalStatus(MaritalStatus.SINGLE);
 
         assertEquals(MaritalStatus.SINGLE, user.getMaritalStatus());
-        System.out.println("User MaritalStatus Test Passed!");
+        System.out.println("testSetMaritalStatus Passed!");
     }
 
     // Test getters and setters of DOB
@@ -46,6 +46,6 @@ public class UserTest {
         user.setDateOfBirth(new Date());
 
         assertNotNull(user.getDateOfBirth());
-        System.out.println("User DOB Test Passed!");
+        System.out.println("testSetDateOfBirth Passed!");
     }
 }
