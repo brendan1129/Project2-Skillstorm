@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skillstorm.group8.taxprep.models.Address;
 import com.skillstorm.group8.taxprep.models.User;
+import com.skillstorm.group8.taxprep.repositories.AddressRepository;
 import com.skillstorm.group8.taxprep.repositories.UserRepository;
 
 @Service
@@ -14,6 +16,12 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
+
+    @Autowired
+    AddressService addressService;
 
     // Retrieves a list of all users
     public List<User> findAllUsers() {
@@ -45,8 +53,10 @@ public class UserService {
         if (updatedUser.getLastName() != null) {
             existingUser.setLastName(updatedUser.getLastName());
         }
-        // Update other fields as needed...
-
+        // Set address information
+        Address updatedAddress = updatedUser.getAddress();
+        addressService.updateAddress(updatedAddress.getId(), updatedAddress);
+        
         return userRepository.save(existingUser);
     }
 

@@ -10,9 +10,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.skillstorm.group8.taxprep.forms.Form1099;
 import com.skillstorm.group8.taxprep.forms.FormW2;
@@ -54,7 +56,11 @@ public class User {
     @JoinColumn(name = "ssn")
     private List<FormW2> incomeFromW2;
 
-    // Address address;
+    // Many users can be associated with one address
+    @ManyToOne
+    // @JsonBackReference
+    @JoinColumn(name = "address") // Foreign key column in the USERS table
+    private Address address;
 
     @Column(name = "dob")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -137,13 +143,13 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    // public Address getAddress() {
-    // return address;
-    // }
+    public Address getAddress() {
+        return address;
+    }
 
-    // public void setAddress(Address address) {
-    // this.address = address;
-    // }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
