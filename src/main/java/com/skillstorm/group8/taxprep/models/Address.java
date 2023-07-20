@@ -37,7 +37,7 @@ public class Address {
 
     // Zip code
     @Column(name = "zip_code")
-    private int zipCode;
+    private Integer zipCode;
     
     /* CONSTRUCTORS */
 
@@ -87,7 +87,7 @@ public class Address {
         this.state = state;
     }
 
-    public int getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
 

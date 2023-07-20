@@ -20,6 +20,36 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // Saves a user
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    // Deletes a user
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    // Update a user with the provided updatedUser object
+    public User updateUser(String email, User updatedUser) {
+        // Find the existing user by email
+        Optional<User> optionalExistingUser = userRepository.findByEmail(email);
+        if (!optionalExistingUser.isPresent()) {
+            return null;
+        }
+        User existingUser = optionalExistingUser.get();
+        // Manually update the user fields that are allowed to be updated
+        if (updatedUser.getFirstName() != null) {
+            existingUser.setFirstName(updatedUser.getFirstName());
+        }
+        if (updatedUser.getLastName() != null) {
+            existingUser.setLastName(updatedUser.getLastName());
+        }
+        // Update other fields as needed...
+
+        return userRepository.save(existingUser);
+    }
+
     // Finds a user by their email
     public User findUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
@@ -44,16 +74,6 @@ public class UserService {
         // }
 
         return userRepository.save(user);
-    }
-
-    // Saves a user
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
-
-    // Deletes a user
-    public void deleteUser(User user) {
-        userRepository.delete(user);
     }
 
 }
