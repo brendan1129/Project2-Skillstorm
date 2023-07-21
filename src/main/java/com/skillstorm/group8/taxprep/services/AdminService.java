@@ -12,8 +12,12 @@ import com.skillstorm.group8.taxprep.repositories.AdminRepository;
 @Service
 public class AdminService {
 
+    /* ATTRIBUTES */
+
     @Autowired
     AdminRepository adminRepository;
+
+    /* CRUD FUNCTIONS */
 
     // Retrieves a list of all admins
     public List<Admin> findAllAdmins() {
@@ -48,4 +52,7 @@ public class AdminService {
         // Update other fields as needed...
         return adminRepository.save(existingAdmin);
     }
+
+    /* METHODS */
+    
 }

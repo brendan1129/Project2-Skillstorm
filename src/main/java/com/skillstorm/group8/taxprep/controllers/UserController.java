@@ -27,8 +27,12 @@ import com.skillstorm.group8.taxprep.services.UserService;
 @CrossOrigin("*")
 public class UserController {
 
+    /* ATTRIBUTES */
+
     @Autowired
     UserService userService;
+
+    /* CRUD FUNCTIONS */
 
     // Retrieves a list of all users
     @GetMapping
@@ -62,6 +66,8 @@ public class UserController {
         }
         return ResponseEntity.ok(updatedUserResult);
     }
+
+    /* METHODS */
 
     // Creates a new user
     @PostMapping("/user/{maritalStatusString}")

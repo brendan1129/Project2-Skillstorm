@@ -14,6 +14,8 @@ import com.skillstorm.group8.taxprep.repositories.UserRepository;
 @Service
 public class UserService {
 
+    /* ATTRIBUTES */
+
     @Autowired
     UserRepository userRepository;
 
@@ -22,6 +24,8 @@ public class UserService {
 
     @Autowired
     AddressService addressService;
+
+    /* CRUD FUNCTIONS*/
 
     // Retrieves a list of all users
     public List<User> findAllUsers() {
@@ -53,7 +57,7 @@ public class UserService {
     // Update a user with the provided updatedUser object
     public User updateUser(String email, User updatedUser) {
         // Find the existing user by email
-        Optional<User> optionalExistingUser = userRepository.findByEmail(email);
+        Optional<User> optionalExistingUser = userRepository.findUserByEmail(email);
         if (!optionalExistingUser.isPresent()) {
             return null;
         }
@@ -82,9 +86,11 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
+    /* METHODS */
+
     // Finds a user by their email
     public User findUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findUserByEmail(email);
         if (user.isPresent())
             return user.get();
 
@@ -107,5 +113,4 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
 }

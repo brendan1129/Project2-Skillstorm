@@ -25,8 +25,12 @@ import com.skillstorm.group8.taxprep.services.AddressService;
 @CrossOrigin("*")
 public class AddressController {
 
+    /* ATTRIBUTES */
+
     @Autowired
     AddressService addressService;
+
+    /* CRUD FUNCTIONS */
 
     // Retrieves a list of all addresses
     @GetMapping
@@ -60,4 +64,7 @@ public class AddressController {
         }
         return ResponseEntity.ok(updatedAddressResult);
     }
+
+    /* METHODS */
+    
 }

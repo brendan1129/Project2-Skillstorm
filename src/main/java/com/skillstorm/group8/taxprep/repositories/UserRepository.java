@@ -10,6 +10,6 @@ import com.skillstorm.group8.taxprep.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 
-    Optional<User> findByEmail(String email);
+    Optional<User> findUserByEmail(String email);
     
 }

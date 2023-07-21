@@ -25,8 +25,12 @@ import com.skillstorm.group8.taxprep.services.AdminService;
 @CrossOrigin("*")
 public class AdminController {
 
+    /* ATTRIBUTES */
+
     @Autowired
     AdminService adminService;
+
+    /* CRUD FUNCTIONS */
 
     // Retrieves a list of all admins
     @GetMapping
@@ -60,5 +64,7 @@ public class AdminController {
         }
         return ResponseEntity.ok(updatedAdminResult);
     }
+
+    /* METHODS */
 
 }

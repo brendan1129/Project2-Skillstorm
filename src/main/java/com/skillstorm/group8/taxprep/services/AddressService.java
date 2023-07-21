@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.group8.taxprep.models.Address;
-import com.skillstorm.group8.taxprep.models.User;
 import com.skillstorm.group8.taxprep.repositories.AddressRepository;
 
 import java.util.List;
@@ -13,8 +12,12 @@ import java.util.Optional;
 @Service
 public class AddressService {
 
+    /* ATTRIBUTES */
+
     @Autowired
     AddressRepository addressRepository;
+
+    /* CRUD FUNCTIONS */
 
     // Retrieves a list of all addresses
     public List<Address> findAllAddresses() {
@@ -60,5 +63,7 @@ public class AddressService {
         // Save the updated address
         return addressRepository.save(existingAddress);
     }
+
+    /* METHODS */
     
 }
