@@ -30,6 +30,18 @@ public class UserService {
 
     // Saves a user
     public User saveUser(User user) {
+        Address updatedAddress = user.getAddress();
+        if (updatedAddress != null) {
+            // Check if the address has an ID (if it's persisted in the database)
+            if (updatedAddress.getId() != 0) {
+                // Update the existing address in the database
+                addressService.updateAddress(updatedAddress.getId(), updatedAddress);
+            } else {
+                // Save the new address in the database and set it in the user
+                Address newAddress = addressService.saveAddress(updatedAddress);
+                user.setAddress(newAddress);
+            }
+        }
         return userRepository.save(user);
     }
 
@@ -55,7 +67,17 @@ public class UserService {
         }
         // Set address information
         Address updatedAddress = updatedUser.getAddress();
-        addressService.updateAddress(updatedAddress.getId(), updatedAddress);
+        if (updatedAddress != null) {
+            // Check if the address has an ID (if it's persisted in the database)
+            if (updatedAddress.getId() != 0) {
+                // Update the existing address in the database
+                addressService.updateAddress(updatedAddress.getId(), updatedAddress);
+            } else {
+                // Save the new address in the database and set it in the user
+                Address newAddress = addressService.saveAddress(updatedAddress);
+                existingUser.setAddress(newAddress);
+            }
+        }
         
         return userRepository.save(existingUser);
     }
