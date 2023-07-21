@@ -26,6 +26,6 @@ public class UserRepositoryTest {
         Optional<User> foundUser = userRepository.findByEmail("john.doe@gmail.com");
         assertTrue(foundUser.isPresent());
         assertEquals("john.doe@gmail.com", foundUser.get().getEmail());
-        System.out.println("User Repository findByEmail Test Passed!");
+        System.out.println("testFindByEmail Passed!");
     }
 }

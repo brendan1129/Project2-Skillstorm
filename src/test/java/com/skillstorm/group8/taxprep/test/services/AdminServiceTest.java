@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +44,7 @@ public class AdminServiceTest {
 
         // Assert the result
         assertEquals(2, result.size());
+        System.out.println("testFindAllAdmins Passed!");
     }
 
     @Test
@@ -65,6 +65,8 @@ public class AdminServiceTest {
         Optional<Admin> retrievedAdmin = adminRepository.findById(savedAdmin.getId());
         assertEquals(adminToSave.getFirstName(), retrievedAdmin.get().getFirstName());
         assertEquals(adminToSave.getLastName(), retrievedAdmin.get().getLastName());
+
+        System.out.println("testSaveAdmin Passed!");
     }
 
     @Test
@@ -91,6 +93,8 @@ public class AdminServiceTest {
         Optional<Admin> retrievedAdmin = adminRepository.findById(existingAdmin.getId());
         assertEquals(updatedAdmin.getFirstName(), retrievedAdmin.get().getFirstName());
         assertEquals(updatedAdmin.getLastName(), retrievedAdmin.get().getLastName());
+
+        System.out.println("testUpdateAdmin Passed!");
     }
 
     @Test
@@ -104,5 +108,7 @@ public class AdminServiceTest {
 
         // Assert the result should be null for a non-existent ID
         assertNull(result);
+
+        System.out.println("testUpdateAdmin_NonExistentId Passed!");
     }
 }
