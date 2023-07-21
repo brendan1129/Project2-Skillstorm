@@ -1,10 +1,9 @@
 package com.skillstorm.group8.taxprep.models;
 
 public enum MaritalStatus {
-    Single,
-    Married_Filing_Jointly,
-    Married_Filing_Seperately,
-    Head_of_HouseHold,
-    Qualifying_Surviving_Spouse;
-
+    SINGLE,
+    MARRIED_FILING_JOINTLY,
+    MARRIED_FILING_SERPERATLY,
+    HEAD_OF_HOUSEHOLD,
+    QUALIFYING_SURVIVING_SPOUSE;
 }
