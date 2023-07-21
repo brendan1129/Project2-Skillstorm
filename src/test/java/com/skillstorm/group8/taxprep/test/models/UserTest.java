@@ -33,9 +33,9 @@ public class UserTest {
     @Test
     public void testSetMaritalStatus() {
         User user = new User();
-        user.setMaritalStatus(MaritalStatus.SINGLE);
+        user.setMaritalStatus(MaritalStatus.Single);
 
-        assertEquals(MaritalStatus.SINGLE, user.getMaritalStatus());
+        assertEquals(MaritalStatus.Single, user.getMaritalStatus());
         System.out.println("testSetMaritalStatus Passed!");
     }
 
