@@ -1,9 +1,8 @@
 package com.skillstorm.group8.taxprep.models;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,16 +10,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.skillstorm.group8.taxprep.forms.Form1099;
-import com.skillstorm.group8.taxprep.forms.FormW2;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
 
     /* ATTRIBUTES */
 
@@ -44,16 +40,6 @@ public class User {
     // User's password
     @Column(name = "password")
     private String password;
-
-    // List of income from Form 1099
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ssn")
-    private List<Form1099> incomeFrom1099;
-
-    // List of income from Form W2
-    @OneToMany
-    @JoinColumn(name = "ssn")
-    private List<FormW2> incomeFromW2;
 
     // Many users can be associated with one address
     @ManyToOne
@@ -116,22 +102,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Form1099> getIncomeFrom1099() {
-        return incomeFrom1099;
-    }
-
-    public void setIncomeFrom1099(List<Form1099> incomeFrom1099) {
-        this.incomeFrom1099 = incomeFrom1099;
-    }
-
-    public List<FormW2> getIncomeFromW2() {
-        return incomeFromW2;
-    }
-
-    public void setIncomeFromW2(List<FormW2> incomeFromW2) {
-        this.incomeFromW2 = incomeFromW2;
     }
 
     public Date getDateOfBirth() {

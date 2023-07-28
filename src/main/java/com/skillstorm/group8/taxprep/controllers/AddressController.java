@@ -48,7 +48,7 @@ public class AddressController {
     }
 
     // Deletes an address
-    @DeleteMapping("/address")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Address> deleteAddress(@RequestBody Address address) {
         // Deletes the address
         addressService.deleteAddress(address);
@@ -56,7 +56,7 @@ public class AddressController {
     }
 
     // Update an address by ID
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Address> updateAddress(@PathVariable int id, @Valid @RequestBody Address updatedAddress) {
         Address updatedAddressResult = addressService.updateAddress(id, updatedAddress);
         if (updatedAddressResult == null) {

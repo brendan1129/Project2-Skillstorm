@@ -50,7 +50,7 @@ public class UserController {
     }
 
     // Deletes a user
-    @DeleteMapping("/user")
+    @DeleteMapping("/{email}")
     public ResponseEntity<User> deleteUser(@RequestBody User user) {
         // Deletes the user
         userService.deleteUser(user);
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     // Update a user by email
-    @PutMapping("/user/{email}")
+    @PutMapping("/{email}")
     public ResponseEntity<User> updateUser(@PathVariable String email, @Valid @RequestBody User updatedUser) {
         User updatedUserResult = userService.updateUser(email, updatedUser);
         if (updatedUserResult == null) {

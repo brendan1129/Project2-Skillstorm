@@ -48,7 +48,7 @@ public class AdminController {
     }
 
     // Deletes an admin
-    @DeleteMapping("/admin")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Admin> deleteAdmin(@RequestBody Admin admin) {
         // Deletes the admin
         adminService.deleteAdmin(admin);
@@ -56,7 +56,7 @@ public class AdminController {
     }
 
     // Update an admin by ID
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable int id, @Valid @RequestBody Admin updatedAdmin) {
         Admin updatedAdminResult = adminService.updateAdmin(id, updatedAdmin);
         if (updatedAdminResult == null) {

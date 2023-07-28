@@ -69,6 +69,15 @@ public class UserService {
         if (updatedUser.getLastName() != null) {
             existingUser.setLastName(updatedUser.getLastName());
         }
+        if(updatedUser.getPassword() != null) {
+            existingUser.setPassword(updatedUser.getPassword());
+        }
+        if(updatedUser.getDateOfBirth() != null) {
+            existingUser.setDateOfBirth(updatedUser.getDateOfBirth());
+        }
+        if(updatedUser.getMaritalStatus() != null) {
+            existingUser.setMaritalStatus(updatedUser.getMaritalStatus());
+        }
         // Set address information
         Address updatedAddress = updatedUser.getAddress();
         if (updatedAddress != null) {

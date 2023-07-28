@@ -3,10 +3,12 @@ package com.skillstorm.group8.taxprep.forms;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.skillstorm.group8.taxprep.IncomeSource.IncomeSource;
-import com.skillstorm.group8.taxprep.models.Address;
+import com.skillstorm.group8.taxprep.models.User;
 
 @Entity
 @Table(name = "Form1099s")
@@ -16,18 +18,25 @@ public class Form1099 extends IncomeSource {
 
     // Payer's Tax Identification Number (TIN)
     @Id
-    @Column(name = "TIN", length = 9)
+    @Column(name = "tin", length = 9)
     private String payerTIN;
 
     // Amount withheld from income
     @Column(name = "withheld")
     private double amountWithheld;
 
-    // Address employerAddress;
+    // Employer's first name
+    @Column(name = "first_name")
+    private String payerFirstName;
 
-    // Employer's name
-    @Column(name = "name")
-    private String employerName;
+    // Employer's last name
+    @Column(name = "last_name")
+    private String payerLastName;
+
+    // Reference to the user who filled the form
+    @ManyToOne
+    @JoinColumn(name = "ssn", referencedColumnName = "ssn")
+    private User user;
 
     /* CONSTRUCTORS */
 
@@ -53,20 +62,28 @@ public class Form1099 extends IncomeSource {
         this.amountWithheld = amountWithheld;
     }
 
-    // public Address getEmployerAddress() {
-    // return employerAddress;
-    // }
-
-    // public void setEmployerAddress(Address employerAddress) {
-    // this.employerAddress = employerAddress;
-    // }
-
-    public String getEmployerName() {
-        return employerName;
+    public String getPayerFirstName() {
+        return payerFirstName;
     }
 
-    public void setEmployerName(String employerName) {
-        this.employerName = employerName;
+    public void setPayerFirstName(String payerFirstName) {
+        this.payerFirstName = payerFirstName;
+    }
+
+    public String getPayerLastName() {
+        return payerLastName;
+    }
+
+    public void setPayerLastName(String payerLastName) {
+        this.payerLastName = payerLastName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
