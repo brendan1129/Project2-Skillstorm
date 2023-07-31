@@ -85,4 +85,21 @@ public class Address {
         this.zipCode = zipCode;
     }
 
+    public Address(int id, String streetPrimary, String streetSecondary, String city, String state, Integer zipCode) {
+        this.id = id;
+        this.streetPrimary = streetPrimary;
+        this.streetSecondary = streetSecondary;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+
+    public Address(int id, String streetPrimary, String city, String state, Integer zipCode) {
+        this.id = id;
+        this.streetPrimary = streetPrimary;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+
 }

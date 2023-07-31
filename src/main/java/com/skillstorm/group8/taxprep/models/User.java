@@ -32,7 +32,7 @@ public class User implements Serializable {
 
     private Address address;
 
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     private MaritalStatus maritalStatus;
 
@@ -84,11 +84,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -109,7 +109,7 @@ public class User implements Serializable {
     }
 
     public User(String email, String ssn, String firstName, String lastName, String password, Address address,
-            Date dateOfBirth, MaritalStatus maritalStatus) {
+            String dateOfBirth, MaritalStatus maritalStatus) {
         this.email = email;
         this.ssn = ssn;
         this.firstName = firstName;
