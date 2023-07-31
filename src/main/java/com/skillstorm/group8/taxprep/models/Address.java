@@ -1,10 +1,8 @@
 package com.skillstorm.group8.taxprep.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,28 +12,21 @@ public class Address {
 
     // Primary key
     @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     // Primary street address
-    @Column(name = "street_primary")
     private String streetPrimary;
 
     // Secondary street address
-    @Column(name = "street_secondary")
     private String streetSecondary;
 
     // City
-    @Column(name = "city")
     private String city;
 
     // State
-    @Column(name = "state")
     private String state;
 
     // Zip code
-    @Column(name = "zip_code")
     private Integer zipCode;
     
     /* CONSTRUCTORS */

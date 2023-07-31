@@ -1,41 +1,31 @@
 package com.skillstorm.group8.taxprep.forms;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.skillstorm.group8.taxprep.IncomeSource.IncomeSource;
 import com.skillstorm.group8.taxprep.models.User;
 
-@Entity
-@Table(name = "FormW2s")
+@Document(collection = "FormW2s")
 public class FormW2 extends IncomeSource {
 
     /* ATTRIBUTES */
 
     // Employer's Employer Identification Number (EIN)
     @Id
-    @Column(name = "ein", length = 10)
     private String employerEIN;
 
     // Amount withheld from income
-    @Column(name = "withheld")
     private double amountWithheld;
 
     // Payer's first name
-    @Column(name = "first_name")
     private String payerFirstName;
 
     // Payer's last name
-    @Column(name = "last_name")
     private String payerLastName;
 
     // Reference to the user who filled the form
-    @ManyToOne
-    @JoinColumn(name = "ssn", referencedColumnName = "ssn")
     private User user;
 
 

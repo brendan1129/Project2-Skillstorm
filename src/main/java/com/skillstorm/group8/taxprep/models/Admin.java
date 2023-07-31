@@ -1,10 +1,8 @@
 package com.skillstorm.group8.taxprep.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,16 +12,12 @@ public class Admin {
 
     // Primary key
     @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     // Admin's first name
-    @Column(name = "first_name")
     private String firstName;
 
     // Admin's last name
-    @Column(name = "last_name")
     private String lastName;
 
     /* CONSTRUCTORS */

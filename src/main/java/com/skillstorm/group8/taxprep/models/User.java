@@ -3,10 +3,7 @@ package com.skillstorm.group8.taxprep.models;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Id;
-
-
-
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
