@@ -1,12 +1,10 @@
 package com.skillstorm.group8.taxprep.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.skillstorm.group8.taxprep.models.Address;
 
-@Repository
-public interface AddressRepository extends JpaRepository<Address, Integer> {
+public interface AddressRepository extends MongoRepository<Address, Integer> {
 
 
 
