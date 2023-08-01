@@ -41,6 +41,13 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
+    // Finds a user by their email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
+        User user = userService.findUserByEmail(email);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
     // Creates a new user
     @PostMapping("/user")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
@@ -77,13 +84,6 @@ public class UserController {
         // Save the user
         userService.saveUser(user);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-    }
-
-    // Finds a user by their email
-    @GetMapping("/email/{email}")
-    public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
-        User user = userService.findUserByEmail(email);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     // Adds a user with a W2 and 1099

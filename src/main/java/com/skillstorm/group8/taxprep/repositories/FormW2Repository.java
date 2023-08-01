@@ -1,12 +1,15 @@
 package com.skillstorm.group8.taxprep.repositories;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import com.skillstorm.group8.taxprep.forms.FormW2;
 import java.util.Optional;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface FormW2Repository extends MongoRepository<FormW2, Integer> {
+import com.skillstorm.group8.taxprep.models.FormW2;
+
+public interface FormW2Repository extends MongoRepository<FormW2, String>{
+
+    Optional<FormW2> findFormW2sByEmployerEIN(String ein);
+
+    Optional<FormW2> findFormW2sByEmail(String email);
     
-    Optional<FormW2> findByEmployerEIN(String employerEIN);
 }

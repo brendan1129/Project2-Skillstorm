@@ -2,7 +2,6 @@ package com.skillstorm.group8.taxprep.test.models;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +42,7 @@ public class UserTest {
     @Test
     public void testSetDateOfBirth() {
         User user = new User();
-        user.setDateOfBirth(new Date());
+        user.setDateOfBirth(new String());
 
         assertNotNull(user.getDateOfBirth());
         System.out.println("User DOB Test Passed!");

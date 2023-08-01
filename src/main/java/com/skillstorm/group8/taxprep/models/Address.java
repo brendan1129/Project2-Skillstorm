@@ -2,16 +2,16 @@ package com.skillstorm.group8.taxprep.models;
 
 
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.annotation.Id;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+
 public class Address {
 
     /* ATTRIBUTES */
 
     // Primary key
-    @Id
+//    @Id
     private int id;
 
     // Primary street address
@@ -37,16 +37,24 @@ public class Address {
 
     /* GETTERS AND SETTERS */
 
+  //  public int getId() {
+    //    return id;
+    //}
+
+ //   public void setId(int id) {
+  //      this.id = id;
+  //  }
+
+    public String getStreetPrimary() {
+        return streetPrimary;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getStreetPrimary() {
-        return streetPrimary;
     }
 
     public void setStreetPrimary(String streetPrimary) {

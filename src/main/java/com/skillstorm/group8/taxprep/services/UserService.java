@@ -6,9 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skillstorm.group8.taxprep.models.Address;
 import com.skillstorm.group8.taxprep.models.User;
-import com.skillstorm.group8.taxprep.repositories.AddressRepository;
+
 import com.skillstorm.group8.taxprep.repositories.UserRepository;
 
 @Service
@@ -19,12 +18,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    AddressRepository addressRepository;
-
-    @Autowired
-    AddressService addressService;
-
     /* CRUD FUNCTIONS*/
 
     // Retrieves a list of all users
@@ -34,7 +27,8 @@ public class UserService {
 
     // Saves a user
     public User saveUser(User user) {
-        Address updatedAddress = user.getAddress();
+        /*
+       Address updatedAddress = user.getAddress();
         if (updatedAddress != null) {
             // Check if the address has an ID (if it's persisted in the database)
             if (updatedAddress.getId() != 0) {
@@ -45,7 +39,7 @@ public class UserService {
                 Address newAddress = addressService.saveAddress(updatedAddress);
                 user.setAddress(newAddress);
             }
-        }
+        } */
         return userRepository.save(user);
     }
 
@@ -78,20 +72,9 @@ public class UserService {
         if(updatedUser.getMaritalStatus() != null) {
             existingUser.setMaritalStatus(updatedUser.getMaritalStatus());
         }
-        // Set address information
-        Address updatedAddress = updatedUser.getAddress();
-        if (updatedAddress != null) {
-            // Check if the address has an ID (if it's persisted in the database)
-            if (updatedAddress.getId() != 0) {
-                // Update the existing address in the database
-                addressService.updateAddress(updatedAddress.getId(), updatedAddress);
-            } else {
-                // Save the new address in the database and set it in the user
-                Address newAddress = addressService.saveAddress(updatedAddress);
-                existingUser.setAddress(newAddress);
-            }
+        if(updatedUser.getAddress() != null) {
+            existingUser.setAddress(updatedUser.getAddress());
         }
-        
         return userRepository.save(existingUser);
     }
 

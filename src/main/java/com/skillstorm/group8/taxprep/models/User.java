@@ -1,7 +1,6 @@
 package com.skillstorm.group8.taxprep.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,13 +11,12 @@ public class User implements Serializable {
 
     /* ATTRIBUTES */
 
-    // Email
+    // Primary key
     @Id
+    // User's Email/Login Id
     private String email;
 
-    // Primary key
     // Social Security Number
-    
     private String ssn;
 
     // User's first name
@@ -30,16 +28,44 @@ public class User implements Serializable {
     // User's password
     private String password;
 
+    // User's address
     private Address address;
 
+    // User's DOB
     private String dateOfBirth;
 
+    // User's marital status
     private MaritalStatus maritalStatus;
+
+
 
     /* CONSTRUCTORS */
 
     public User() {
         // Default constructor
+    }
+
+    public User(String email, String ssn, String firstName, String lastName, Address address,
+            String dateOfBirth, MaritalStatus maritalStatus) {
+        this.email = email;
+        this.ssn = ssn;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.maritalStatus = maritalStatus;
+    }
+
+    public User(String email, String ssn, String firstName, String lastName, String password, Address address,
+            String dateOfBirth, MaritalStatus maritalStatus) {
+        this.email = email;
+        this.ssn = ssn;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.maritalStatus = maritalStatus;
     }
 
     /* GETTERS AND SETTERS */
@@ -108,24 +134,7 @@ public class User implements Serializable {
         this.maritalStatus = maritalStatus;
     }
 
-    public User(String email, String ssn, String firstName, String lastName, String password, Address address,
-            String dateOfBirth, MaritalStatus maritalStatus) {
-        this.email = email;
-        this.ssn = ssn;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
-        this.maritalStatus = maritalStatus;
-    }
-
-    @Override
-    public String toString() {
-        return "User [email=" + email + ", ssn=" + ssn + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", password=" + password + ", address=" + address + ", dateOfBirth=" + dateOfBirth
-                + ", maritalStatus=" + maritalStatus + "]";
-    }
+    /* HASHCODE AND EQUALS */
 
     @Override
     public int hashCode() {
@@ -191,5 +200,12 @@ public class User implements Serializable {
         return true;
     }
 
-    
+    /* TO STRING */
+
+    @Override
+    public String toString() {
+        return "User [email=" + email + ", ssn=" + ssn + ", firstName=" + firstName + ", lastName=" + lastName
+                + ", password=" + password + ", address=" + address + ", dateOfBirth=" + dateOfBirth
+                + ", maritalStatus=" + maritalStatus + "]";
+    }
 }
