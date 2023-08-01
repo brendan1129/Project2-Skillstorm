@@ -56,14 +56,6 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
-    // Deletes a user
-    @DeleteMapping("/{email}")
-    public ResponseEntity<User> deleteUser(@RequestBody User user) {
-        // Deletes the user
-        userService.deleteUser(user);
-        return ResponseEntity.noContent().build();
-    }
-
     // Update a user by email
     @PutMapping("/{email}")
     public ResponseEntity<User> updateUser(@PathVariable String email, @Valid @RequestBody User updatedUser) {
@@ -72,6 +64,14 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(updatedUserResult);
+    }
+
+     // Deletes a user
+    @DeleteMapping
+    public ResponseEntity<User> deleteUser(@RequestBody User user) {
+        // Deletes the user
+        userService.deleteUser(user);
+        return ResponseEntity.noContent().build();
     }
 
     /* METHODS */

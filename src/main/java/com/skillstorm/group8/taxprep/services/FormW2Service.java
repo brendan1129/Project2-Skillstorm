@@ -66,16 +66,19 @@ public class FormW2Service {
         FormW2 existingFormW2 = formW2Repository.save(formW2);
 
         // recalculates the total tax amounts based on the new updates
-        String email = existingFormW2.getEmail();
-        Optional<TaxForms> optionalTaxForms = taxFormsRepository.findTaxFormsByEmail(email);
-     //   TaxForms taxForms = optionalTaxForms.get().taxCalculation(optionalTaxForms.get());
-      //  taxForms = taxFormsRepository.save(taxForms);
+        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
+        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
 
         return existingFormW2;
     }
 
+    // deletes an existing W2
     public void deleteFormW2(FormW2 formW2) {
         formW2Repository.delete(formW2);
+
+        // recalculates the total tax amounts after W2 deletion
+        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
+        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
     }
     
 }

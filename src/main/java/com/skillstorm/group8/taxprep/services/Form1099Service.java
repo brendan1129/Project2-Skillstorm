@@ -66,20 +66,18 @@ public class Form1099Service {
         Form1099 existingForm1099 = form1099Repository.save(form1099);
 
         // recalculates the total tax amounts based on the new updates
-        String email = existingForm1099.getEmail();
-        Optional<TaxForms> optionalTaxForms = taxFormsRepository.findTaxFormsByEmail(email);
-        //TaxForms taxForms = optionalTaxForms.get().taxCalculation(optionalTaxForms.get());
-        //taxForms = taxFormsRepository.save(taxForms);
+        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
+        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
 
         return existingForm1099;
     }
-
-    public void deleteUser(Form1099 form1099) {
-        form1099Repository.delete(form1099);
-    }
-
+    // deletes an existing 1099 form
     public void deleteForm1099(Form1099 form1099) {
         form1099Repository.delete(form1099);
+
+        // recalculates the total tax amounts after 1099 deletion
+        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
+        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
     }
     
 }

@@ -6,8 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skillstorm.group8.taxprep.models.Form1099;
+import com.skillstorm.group8.taxprep.models.FormW2;
+import com.skillstorm.group8.taxprep.models.TaxForms;
 import com.skillstorm.group8.taxprep.models.User;
-
+import com.skillstorm.group8.taxprep.repositories.Form1099Repository;
+import com.skillstorm.group8.taxprep.repositories.FormW2Repository;
+import com.skillstorm.group8.taxprep.repositories.TaxFormsRepository;
 import com.skillstorm.group8.taxprep.repositories.UserRepository;
 
 @Service
@@ -17,6 +22,15 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    Form1099Repository form1099Repository;
+
+    @Autowired
+    FormW2Repository formW2Repository;
+
+    @Autowired
+    TaxFormsRepository taxFormsRepository;
 
     /* CRUD FUNCTIONS*/
 
@@ -41,11 +55,6 @@ public class UserService {
             }
         } */
         return userRepository.save(user);
-    }
-
-    // Deletes a user
-    public void deleteUser(User user) {
-        userRepository.delete(user);
     }
 
     // Update a user with the provided updatedUser object
@@ -105,4 +114,32 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    // Deletes a user
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+
+        // deletes the user's saved W2 forms
+        Optional<List<FormW2>> allW2Forms = formW2Repository.findFormW2sByEmail(user.getEmail());
+        if (allW2Forms.isPresent()) {
+            for (FormW2 w : allW2Forms.get()) {
+                formW2Repository.delete(w);
+            }
+        }
+
+        // deletes the user's saved 1099 forms
+        Optional<List<Form1099>> all1099Forms = form1099Repository.findForm1099sByEmail(user.getEmail());
+        if (all1099Forms.isPresent()) {
+            for (Form1099 x : all1099Forms.get()) {
+                form1099Repository.delete(x);
+            }
+        }
+
+        // deletes the user's tax information
+        Optional<TaxForms> taxForms = taxFormsRepository.findTaxFormsByEmail(user.getEmail());
+        if (taxForms.isPresent()) {
+            taxFormsRepository.delete(taxForms.get());
+        }
+    }
+
 }
