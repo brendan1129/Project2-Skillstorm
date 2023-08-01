@@ -20,14 +20,17 @@ public class Form1099Service {
      @Autowired
     TaxFormsRepository taxFormsRepository;
 
+    @Autowired
+    TaxFormsService taxFormsService;
+
     // Retrieves a list of all 1099 forms
     public List<Form1099> findAllForm1099s() {
         return form1099Repository.findAll();
     }
 
     // retrieves 1099 forms by user's email/log in
-    public Form1099 findForm1099sByEmail(String email) {
-        Optional<Form1099> form1099s = form1099Repository.findForm1099sByEmail(email);
+    public List<Form1099> findForm1099sByEmail(String email) {
+        Optional<List<Form1099>> form1099s = form1099Repository.findForm1099sByEmail(email);
         if (form1099s.isPresent())
             return form1099s.get();
         return null;
@@ -35,7 +38,18 @@ public class Form1099Service {
 
     // saves new 1099s
     public Form1099 saveForm1099 (Form1099 form1099) {
-        return form1099Repository.save(form1099);
+        Form1099 newForm1099 = form1099Repository.save(form1099);
+
+        // checks for an existing tax form, makes one if not present, and then updates tax totals with info from the new form
+         Optional<TaxForms> optionalExistingTaxForms = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
+        if (!optionalExistingTaxForms.isPresent()) {
+            TaxForms taxForms = new TaxForms(form1099.getEmail());
+            taxForms = taxFormsRepository.save(taxFormsService.taxCalculation(taxForms));
+        }
+        else {
+            taxFormsRepository.save(taxFormsService.taxCalculation(optionalExistingTaxForms.get()));
+        }
+        return newForm1099;
     }
 
     // updates existing 1099s
@@ -54,8 +68,8 @@ public class Form1099Service {
         // recalculates the total tax amounts based on the new updates
         String email = existingForm1099.getEmail();
         Optional<TaxForms> optionalTaxForms = taxFormsRepository.findTaxFormsByEmail(email);
-        TaxForms taxForms = optionalTaxForms.get().taxCalculation(optionalTaxForms.get());
-        taxForms = taxFormsRepository.save(taxForms);
+        //TaxForms taxForms = optionalTaxForms.get().taxCalculation(optionalTaxForms.get());
+        //taxForms = taxFormsRepository.save(taxForms);
 
         return existingForm1099;
     }

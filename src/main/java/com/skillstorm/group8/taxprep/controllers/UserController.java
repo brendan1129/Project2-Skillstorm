@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skillstorm.group8.taxprep.models.MaritalStatus;
 import com.skillstorm.group8.taxprep.models.User;
 import com.skillstorm.group8.taxprep.services.UserService;
 
@@ -42,8 +42,8 @@ public class UserController {
     }
 
     // Finds a user by their email
-    @GetMapping("/email/{email}")
-    public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
+    @GetMapping("/email")
+    public ResponseEntity<User> findUserByEmail(@RequestParam String email) {
         User user = userService.findUserByEmail(email);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
@@ -80,7 +80,7 @@ public class UserController {
     @PostMapping("/user/{maritalStatusString}")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
         User newUser = user;
-        newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
+        //newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
         // Save the user
         userService.saveUser(user);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
@@ -99,7 +99,7 @@ public class UserController {
     @PutMapping("/update-user/{maritalStatusString}")
     public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
         User newUser = user;
-        newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
+       // newUser.setMaritalStatus(Enum.valueOf(MaritalStatus.class, maritalStatusString));
         // Save the user
         userService.saveUser(user);
         // List<Integer> myList = new ArrayList<>();

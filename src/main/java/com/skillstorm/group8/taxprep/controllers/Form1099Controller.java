@@ -42,9 +42,9 @@ public class Form1099Controller {
 
     // Finds a user's tax forms by their email
     @GetMapping("/email/{email}")
-    public ResponseEntity<Form1099> findForm1099ByEmail(@PathVariable String email) {
-        Form1099 form1099 = form1099Service.findForm1099sByEmail(email);
-        return new ResponseEntity<Form1099>(form1099, HttpStatus.OK);
+    public ResponseEntity<List<Form1099>> findForm1099ByEmail(@PathVariable String email) {
+        List<Form1099> form1099 = form1099Service.findForm1099sByEmail(email);
+        return new ResponseEntity<List<Form1099>>(form1099, HttpStatus.OK);
     }
 
     // Creates a new Form1099

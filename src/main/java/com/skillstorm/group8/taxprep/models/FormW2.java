@@ -29,6 +29,8 @@ public class FormW2 {
 
     /* CONSTRUCTORS */
 
+    
+
     // constructor without address
     public FormW2(String employerEIN, String email, double amountEarned, double amountWithheld, String employerName) {
         this.employerEIN = employerEIN;
@@ -36,6 +38,9 @@ public class FormW2 {
         this.amountEarned = amountEarned;
         this.amountWithheld = amountWithheld;
         this.employerName = employerName;
+    }
+
+    public FormW2() {
     }
 
     // full constructor

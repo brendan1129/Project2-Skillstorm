@@ -51,7 +51,7 @@ public class UserService {
     // Update a user with the provided updatedUser object
     public User updateUser(String email, User updatedUser) {
         // Find the existing user by email
-        Optional<User> optionalExistingUser = userRepository.findUserByEmail(email);
+        Optional<User> optionalExistingUser = userRepository.findById(email);
         if (!optionalExistingUser.isPresent()) {
             return null;
         }
@@ -82,7 +82,7 @@ public class UserService {
 
     // Finds a user by their email
     public User findUserByEmail(String email) {
-        Optional<User> user = userRepository.findUserByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent())
             return user.get();
 

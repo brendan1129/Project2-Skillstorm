@@ -20,14 +20,17 @@ public class FormW2Service {
     @Autowired
     TaxFormsRepository taxFormsRepository;
 
+    @Autowired
+    TaxFormsService taxFormsService;
+
     // Retrieves a list of all W2 forms
     public List<FormW2> findAllFormW2s() {
         return formW2Repository.findAll();
     }
 
     // retrieves W2 forms by user's email/log in
-    public FormW2 findFormW2sByEmail(String email) {
-        Optional<FormW2> formW2s = formW2Repository.findFormW2sByEmail(email);
+    public List<FormW2> findFormW2sByEmail(String email) {
+        Optional<List<FormW2>> formW2s = formW2Repository.findFormW2sByEmail(email);
         if (formW2s.isPresent())
             return formW2s.get();
         return null;
@@ -35,7 +38,18 @@ public class FormW2Service {
 
     // saves new W2s
     public FormW2 saveFormW2 (FormW2 formW2) {
-        return formW2Repository.save(formW2);
+        FormW2 newFormW2 = formW2Repository.save(formW2);
+
+        // checks for an existing tax form, makes one if not present, and then updates tax totals with info from the new form
+         Optional<TaxForms> optionalExistingTaxForms = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
+        if (!optionalExistingTaxForms.isPresent()) {
+            TaxForms taxForms = new TaxForms(formW2.getEmail());
+            taxForms = taxFormsRepository.save(taxFormsService.taxCalculation(taxForms));
+        }
+        else {
+            taxFormsRepository.save(taxFormsService.taxCalculation(optionalExistingTaxForms.get()));
+        }
+        return newFormW2;
     }
 
     // updates existing W2s
@@ -54,8 +68,8 @@ public class FormW2Service {
         // recalculates the total tax amounts based on the new updates
         String email = existingFormW2.getEmail();
         Optional<TaxForms> optionalTaxForms = taxFormsRepository.findTaxFormsByEmail(email);
-        TaxForms taxForms = optionalTaxForms.get().taxCalculation(optionalTaxForms.get());
-        taxForms = taxFormsRepository.save(taxForms);
+     //   TaxForms taxForms = optionalTaxForms.get().taxCalculation(optionalTaxForms.get());
+      //  taxForms = taxFormsRepository.save(taxForms);
 
         return existingFormW2;
     }

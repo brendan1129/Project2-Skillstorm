@@ -24,7 +24,7 @@ import com.skillstorm.group8.taxprep.services.FormW2Service;
 
 
 @RestController
-@RequestMapping("/formw2")
+@RequestMapping("/formW2")
 @CrossOrigin("*")
 public class FormW2Controller {
 
@@ -44,9 +44,9 @@ public class FormW2Controller {
 
     // Finds a user's tax forms by their email
     @GetMapping("/email/{email}")
-    public ResponseEntity<FormW2> findFormW2ByEmail(@PathVariable String email) {
-        FormW2 formW2 = formW2Service.findFormW2sByEmail(email);
-        return new ResponseEntity<FormW2>(formW2, HttpStatus.OK);
+    public ResponseEntity<List<FormW2>> findFormW2ByEmail(@PathVariable String email) {
+        List<FormW2> formW2 = formW2Service.findFormW2sByEmail(email);
+        return new ResponseEntity<List<FormW2>>(formW2, HttpStatus.OK);
     }
 
     // Creates a new FormW2

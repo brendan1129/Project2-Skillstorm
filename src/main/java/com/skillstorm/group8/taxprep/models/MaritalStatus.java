@@ -1,8 +1,18 @@
 package com.skillstorm.group8.taxprep.models;
 
 public enum MaritalStatus {
-    SINGLE,
-    MARRIED_FILING_JOINTLY,
-    MARRIED_FILING_SEPARATELY,
-    HEAD_OF_HOUSEHOLD;
+    SINGLE("Single"),
+    MARRIED_FILING_JOINTLY("Married Filing Jointly"),
+    MARRIED_FILING_SEPARATELY("Married Filing Separately"),
+    HEAD_OF_HOUSEHOLD("Head of Household");
+    
+    private String status;
+
+    MaritalStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

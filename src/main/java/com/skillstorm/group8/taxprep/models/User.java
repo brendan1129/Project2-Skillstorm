@@ -35,7 +35,7 @@ public class User implements Serializable {
     private String dateOfBirth;
 
     // User's marital status
-    private MaritalStatus maritalStatus;
+    private String maritalStatus;
 
 
 
@@ -46,7 +46,7 @@ public class User implements Serializable {
     }
 
     public User(String email, String ssn, String firstName, String lastName, Address address,
-            String dateOfBirth, MaritalStatus maritalStatus) {
+            String dateOfBirth, String maritalStatus) {
         this.email = email;
         this.ssn = ssn;
         this.firstName = firstName;
@@ -57,7 +57,7 @@ public class User implements Serializable {
     }
 
     public User(String email, String ssn, String firstName, String lastName, String password, Address address,
-            String dateOfBirth, MaritalStatus maritalStatus) {
+            String dateOfBirth, String maritalStatus) {
         this.email = email;
         this.ssn = ssn;
         this.firstName = firstName;
@@ -126,11 +126,11 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public MaritalStatus getMaritalStatus() {
+    public String getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(MaritalStatus maritalStatus) {
+    public void setMaritalStatus(String maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 
@@ -195,7 +195,10 @@ public class User implements Serializable {
                 return false;
         } else if (!dateOfBirth.equals(other.dateOfBirth))
             return false;
-        if (maritalStatus != other.maritalStatus)
+        if (maritalStatus == null) {
+            if (other.maritalStatus != null)
+                return false;
+        } else if (!maritalStatus.equals(other.maritalStatus))
             return false;
         return true;
     }

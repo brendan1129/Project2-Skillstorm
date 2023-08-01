@@ -8,6 +8,7 @@ import com.skillstorm.group8.taxprep.models.User;
 
 public interface UserRepository extends MongoRepository<User, String>{
 
-    Optional<User> findUserByEmail(String email);
+    
+    Optional<User> findByEmail(String email);
     
 }

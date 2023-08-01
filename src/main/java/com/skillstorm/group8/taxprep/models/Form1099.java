@@ -35,12 +35,17 @@ public class Form1099 {
 
     /* CONSTRUCTORS */
 
+
+    
     public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String businessName) {
         this.payerTIN = payerTIN;
         this.email = email;
         this.amountEarned = amountEarned;
         this.amountWithheld = amountWithheld;
         this.businessName = businessName;
+    }
+
+    public Form1099() {
     }
 
     public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String businessName,
