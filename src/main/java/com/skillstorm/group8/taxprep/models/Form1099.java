@@ -34,8 +34,6 @@ public class Form1099 {
 
 
     /* CONSTRUCTORS */
-
-
     
     public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String businessName) {
         this.payerTIN = payerTIN;

@@ -20,6 +20,8 @@ import com.skillstorm.group8.taxprep.repositories.UserRepository;
 @Service
 public class TaxFormsService {
 
+    /* ATTRIBUTES */
+
     @Autowired
     TaxFormsRepository taxFormsRepository;
 
@@ -32,18 +34,11 @@ public class TaxFormsService {
     @Autowired
     Form1099Repository form1099Repository;
 
+    /* CRUD FUNCTIONS */
 
     // Retrieves a list of all tax forms
     public List<TaxForms> findAllTaxForms() {
         return taxFormsRepository.findAll();
-    }
-
-    // retrieves tax forms by user's email/log in
-    public TaxForms findTaxFormsByEmail(String email) {
-        Optional<TaxForms> taxForms = taxFormsRepository.findTaxFormsByEmail(email);
-        if (taxForms.isPresent())
-            return taxForms.get();
-        return null;
     }
 
     // saves new tax forms
@@ -55,14 +50,12 @@ public class TaxFormsService {
 
     // updates existing tax forms
     public TaxForms updateTaxForms(TaxForms taxForms) {
-
         // Find the existing tax forms by user email
         String email = taxForms.getEmail();
         Optional<TaxForms> optionalExistingTaxForms = taxFormsRepository.findTaxFormsByEmail(email);
         if (!optionalExistingTaxForms.isPresent()) {
             return null;
         }
-        
         // checks to make sure the user is editing the current tax year
         Calendar cal = Calendar.getInstance();
         int currentTaxYear = (cal.get(Calendar.YEAR) - 1);
@@ -70,7 +63,7 @@ public class TaxFormsService {
         if (existingTaxForms.getYear() != currentTaxYear) {
             return null;
         }
-       // existingTaxForms = taxForms.taxCalculation(taxForms);
+        // existingTaxForms = taxForms.taxCalculation(taxForms);
         return taxFormsRepository.save(existingTaxForms);
     }
 
@@ -81,6 +74,16 @@ public class TaxFormsService {
         }
         taxFormsRepository.delete(optionalExistingTaxForms.get());
     }
+
+    // retrieves tax forms by user's email/log in
+    public TaxForms findTaxFormsByEmail(String email) {
+        Optional<TaxForms> taxForms = taxFormsRepository.findTaxFormsByEmail(email);
+        if (taxForms.isPresent())
+            return taxForms.get();
+        return null;
+    }
+
+    /* METHODS */
 
     public TaxForms taxCalculation (TaxForms taxForms) {
     double taxDue, earned = 0, withheld = 0;
