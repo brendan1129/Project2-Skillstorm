@@ -58,9 +58,8 @@ public class UserService {
     }
 
     // Update a user with the provided updatedUser object
-    public User updateUser(String email, User updatedUser) {
-        // Find the existing user by email
-        Optional<User> optionalExistingUser = userRepository.findById(email);
+    public User updateUser(User updatedUser) {
+        Optional<User> optionalExistingUser = userRepository.findByEmail(updatedUser.getEmail());
         if (!optionalExistingUser.isPresent()) {
             return null;
         }

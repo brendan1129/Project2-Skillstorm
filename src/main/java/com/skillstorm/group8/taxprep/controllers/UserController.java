@@ -57,14 +57,16 @@ public class UserController {
     }
 
     // Update a user by email
-    @PutMapping("/{email}")
-    public ResponseEntity<User> updateUser(@PathVariable String email, @Valid @RequestBody User updatedUser) {
-        User updatedUserResult = userService.updateUser(email, updatedUser);
+    @PutMapping("/user")
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User updatedUser) {
+        User updatedUserResult = userService.updateUser(updatedUser);
         if (updatedUserResult == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(updatedUserResult);
     }
+
+    
 
      // Deletes a user
     @DeleteMapping
