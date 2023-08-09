@@ -24,14 +24,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.skillstorm.group8.taxprep.models.User;
 import com.skillstorm.group8.taxprep.services.UserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(allowCredentials = "true", originPatterns = "http://localhost:5173")
+@CrossOrigin(allowCredentials = "true", originPatterns = "http://localhost:8080")
 public class UserController {
 
     /* ATTRIBUTES */
@@ -69,8 +68,6 @@ public class UserController {
         return ResponseEntity.ok(updatedUserResult);
     }
 
-    
-
      // Deletes a user
     @DeleteMapping("/user")
     public ResponseEntity<User> deleteUser(@RequestBody User user) {
@@ -88,21 +85,16 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    // Finds a user by their email
-    @GetMapping("/email2")
-    public ResponseEntity<User> findUserByEmail2(@RequestParam String email, @AuthenticationPrincipal OAuth2User user) {
-        return (ResponseEntity<User>) user.getAttributes();
-        // return (ResponseEntity<User>) user.getAttributes("userEmail");
-    }
-
-    @GetMapping("/accessToken")
-    public String accessToken(Authentication auth) {
-        if(auth instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) auth;
-            OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
-            return client.getAccessToken().getTokenValue();
+    // Finds a user by their OAuth email and verifies they exist in the DB via a return
+    @GetMapping("/authorized")
+    public ResponseEntity<User> checkUserisAuthorized(@AuthenticationPrincipal OAuth2User principal) {
+        String userEmail = principal.getAttribute("email");
+        User user = userService.findUserByEmail(userEmail);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return "";
     }
 
     // Creates a new user
@@ -137,9 +129,19 @@ public class UserController {
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/signin")
-    public RedirectView redirectView() {
-        return new RedirectView("http://localhost:8080");
+    // Returns user's access token
+    @GetMapping("/accessToken")
+    public String accessToken(Authentication auth) {
+        if(auth instanceof OAuth2AuthenticationToken) {
+            OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) auth;
+            OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
+            return client.getAccessToken().getTokenValue();
+        }
+        return "";
     }
-
+    // Returns all information relating to User's OAuth account
+    @GetMapping("/principal")
+    public OAuth2User getUserInfo(@AuthenticationPrincipal OAuth2User principal) {
+        return principal;
+    }
 }
