@@ -54,7 +54,7 @@ public class Form1099 {
 
     
     // full constructor
-    public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String businessName,
+    public Form1099(String id, String payerTIN, String email, double amountEarned, double amountWithheld, String businessName,
             Address address) {
         this.id = id;
         this.payerTIN = payerTIN;

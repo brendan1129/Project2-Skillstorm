@@ -1,6 +1,7 @@
 package com.skillstorm.group8.taxprep.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,14 +26,11 @@ public class User implements Serializable {
     // User's last name
     private String lastName;
 
-    // User's password
-    private String password;
-
     // User's address
     private Address address;
 
     // User's DOB
-    private String dateOfBirth;
+    private Date dateOfBirth;
 
     // User's marital status
     private String maritalStatus;
@@ -46,23 +44,11 @@ public class User implements Serializable {
     }
 
     public User(String email, String ssn, String firstName, String lastName, Address address,
-            String dateOfBirth, String maritalStatus) {
+            Date dateOfBirth, String maritalStatus) {
         this.email = email;
         this.ssn = ssn;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
-        this.maritalStatus = maritalStatus;
-    }
-
-    public User(String email, String ssn, String firstName, String lastName, String password, Address address,
-            String dateOfBirth, String maritalStatus) {
-        this.email = email;
-        this.ssn = ssn;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.maritalStatus = maritalStatus;
@@ -102,19 +88,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -144,7 +123,6 @@ public class User implements Serializable {
         result = prime * result + ((ssn == null) ? 0 : ssn.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
         result = prime * result + ((maritalStatus == null) ? 0 : maritalStatus.hashCode());
@@ -180,11 +158,6 @@ public class User implements Serializable {
                 return false;
         } else if (!lastName.equals(other.lastName))
             return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
         if (address == null) {
             if (other.address != null)
                 return false;
@@ -208,7 +181,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User [email=" + email + ", ssn=" + ssn + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", password=" + password + ", address=" + address + ", dateOfBirth=" + dateOfBirth
+                + ", address=" + address + ", dateOfBirth=" + dateOfBirth
                 + ", maritalStatus=" + maritalStatus + "]";
     }
 }
