@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.group8.taxprep.models.Form1099;
@@ -39,7 +41,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Saves a user
+    // Saves a user 
     public User saveUser(User user) {
         /*
        Address updatedAddress = user.getAddress();
@@ -55,6 +57,21 @@ public class UserService {
             }
         } */
         return userRepository.save(user);
+    }
+    // Saves a user when given the OAuth User
+    public User saveUser(@AuthenticationPrincipal OAuth2User principal) {
+        String userEmail = principal.getAttribute("email");
+        Optional<User> existingUser = userRepository.findByEmail(userEmail);
+        if (existingUser.isPresent()) {
+            return existingUser.get(); // Return the existing user
+        } else {
+            // Create a new user using the provided principal information
+            User newUser = new User();
+            newUser.setEmail(userEmail);
+            // You can set other attributes if needed
+            // Save the new user
+            return userRepository.save(newUser);
+        }
     }
 
     // Update a user with the provided updatedUser object
@@ -86,6 +103,30 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
+    // Deletes a user
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+        // deletes the user's saved W2 forms
+        Optional<List<FormW2>> allW2Forms = formW2Repository.findFormW2sByEmail(user.getEmail());
+        if (allW2Forms.isPresent()) {
+            for (FormW2 w : allW2Forms.get()) {
+                formW2Repository.delete(w);
+            }
+        }
+        // deletes the user's saved 1099 forms
+        Optional<List<Form1099>> all1099Forms = form1099Repository.findForm1099sByEmail(user.getEmail());
+        if (all1099Forms.isPresent()) {
+            for (Form1099 x : all1099Forms.get()) {
+                form1099Repository.delete(x);
+            }
+        }
+        // deletes the user's tax information
+        Optional<TaxForms> taxForms = taxFormsRepository.findTaxFormsByEmail(user.getEmail());
+        if (taxForms.isPresent()) {
+            taxFormsRepository.delete(taxForms.get());
+        }
+    }
+
     /* METHODS */
 
     // Finds a user by their email
@@ -113,32 +154,4 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
-    // Deletes a user
-    public void deleteUser(User user) {
-        userRepository.delete(user);
-
-        // deletes the user's saved W2 forms
-        Optional<List<FormW2>> allW2Forms = formW2Repository.findFormW2sByEmail(user.getEmail());
-        if (allW2Forms.isPresent()) {
-            for (FormW2 w : allW2Forms.get()) {
-                formW2Repository.delete(w);
-            }
-        }
-
-        // deletes the user's saved 1099 forms
-        Optional<List<Form1099>> all1099Forms = form1099Repository.findForm1099sByEmail(user.getEmail());
-        if (all1099Forms.isPresent()) {
-            for (Form1099 x : all1099Forms.get()) {
-                form1099Repository.delete(x);
-            }
-        }
-
-        // deletes the user's tax information
-        Optional<TaxForms> taxForms = taxFormsRepository.findTaxFormsByEmail(user.getEmail());
-        if (taxForms.isPresent()) {
-            taxFormsRepository.delete(taxForms.get());
-        }
-    }
-
 }

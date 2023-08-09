@@ -57,6 +57,12 @@ public class UserController {
         userService.saveUser(user);
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
+    // Creates a new user using the OAuth User
+    @PostMapping("/oauthuser")
+    public ResponseEntity<User> createUser(@AuthenticationPrincipal OAuth2User principal) {
+        User newUser = userService.saveUser(principal);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
 
     // Update a user by email
     @PutMapping("/user")
