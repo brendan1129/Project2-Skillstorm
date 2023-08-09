@@ -67,7 +67,6 @@ public class TaxForms {
         return email;
     }
 
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -91,7 +90,6 @@ public class TaxForms {
     public void setEarned(double earned) {
         this.earned = earned;
     }
-
 
     public double getWithheld() {
         return withheld;
@@ -155,8 +153,5 @@ public class TaxForms {
             return false;
         return true;
     }
-
-    
-
 
 }

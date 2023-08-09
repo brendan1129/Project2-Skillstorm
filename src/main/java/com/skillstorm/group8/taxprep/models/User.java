@@ -37,8 +37,6 @@ public class User implements Serializable {
     // User's marital status
     private String maritalStatus;
 
-
-
     /* CONSTRUCTORS */
 
     public User() {

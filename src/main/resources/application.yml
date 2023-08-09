@@ -7,10 +7,18 @@ spring:
             database: project2DB
     output:
         ansi:
-            enabled: ALWAYS
+            enabled: ALWAYS           
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        clientId: 945516051025-n60et84sp07afmlhtmm3ksj114csm4vu.apps.googleusercontent.com
+                        clientSecret: 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
+                        # redirect-uri: http://localhost:8080/login/oauth2/code/google
+                        # scope: openid,email,profile
 javax:
     net:
         ssl:
             trustStore: /tmp/certs/rds-trusttore.jks
             trustStorePassword: BrendanSaulJames
-

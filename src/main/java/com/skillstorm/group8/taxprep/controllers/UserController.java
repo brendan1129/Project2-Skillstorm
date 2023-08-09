@@ -8,6 +8,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +24,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.skillstorm.group8.taxprep.models.User;
 import com.skillstorm.group8.taxprep.services.UserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin("*")
+@CrossOrigin(allowCredentials = "true", originPatterns = "http://localhost:5173")
 public class UserController {
 
     /* ATTRIBUTES */
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private OAuth2AuthorizedClientService clientService;
 
     /* CRUD FUNCTIONS */
 
@@ -39,13 +49,6 @@ public class UserController {
     public ResponseEntity<List<User>> findAllUsers() {
         List<User> users = userService.findAllUsers();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }
-
-    // Finds a user by their email
-    @GetMapping("/email")
-    public ResponseEntity<User> findUserByEmail(@RequestParam String email) {
-        User user = userService.findUserByEmail(email);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     // Creates a new user
@@ -78,6 +81,30 @@ public class UserController {
 
     /* METHODS */
 
+    // Finds a user by their email
+    @GetMapping("/email")
+    public ResponseEntity<User> findUserByEmail(@RequestParam String email) {
+        User user = userService.findUserByEmail(email);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    // Finds a user by their email
+    @GetMapping("/email2")
+    public ResponseEntity<User> findUserByEmail2(@RequestParam String email, @AuthenticationPrincipal OAuth2User user) {
+        return (ResponseEntity<User>) user.getAttributes();
+        // return (ResponseEntity<User>) user.getAttributes("userEmail");
+    }
+
+    @GetMapping("/accessToken")
+    public String accessToken(Authentication auth) {
+        if(auth instanceof OAuth2AuthenticationToken) {
+            OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) auth;
+            OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
+            return client.getAccessToken().getTokenValue();
+        }
+        return "";
+    }
+
     // Creates a new user
     @PostMapping("/user/{maritalStatusString}")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user, @PathVariable String maritalStatusString) {
@@ -108,6 +135,11 @@ public class UserController {
         // myList.add(123456789);
         // User newUser = userService.saveUser(user, myList);
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/signin")
+    public RedirectView redirectView() {
+        return new RedirectView("http://localhost:8080");
     }
 
 }
