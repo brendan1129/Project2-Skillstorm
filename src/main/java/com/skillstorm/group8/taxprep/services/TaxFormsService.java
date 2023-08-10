@@ -99,7 +99,6 @@ public class TaxFormsService {
         for (FormW2 w : allW2Forms.get()) {
             earned += w.getAmountEarned();
             withheld += w.getAmountWithheld();
-            System.out.println(earned);
     }
     }
 

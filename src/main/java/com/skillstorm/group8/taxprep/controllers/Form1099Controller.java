@@ -66,9 +66,14 @@ public class Form1099Controller {
     }
 
     // Deletes a Form1099
-    @DeleteMapping
-    public ResponseEntity<Form1099> deleteForm1099(@Valid @RequestBody Form1099 form1099) {
-        form1099Service.deleteForm1099(form1099);
+    @DeleteMapping("/delete/{email}/{tin}")
+    public ResponseEntity<Form1099> deleteForm1099( @PathVariable String email, @PathVariable String tin) {
+        List<Form1099> form1099 = form1099Service.findForm1099sByEmail(email);
+        for (Form1099 f : form1099) {
+            if (f.getPayerTIN().equals(tin)) {
+                form1099Service.deleteForm1099(f);
+            }
+        }
         return ResponseEntity.noContent().build();
     }
 }

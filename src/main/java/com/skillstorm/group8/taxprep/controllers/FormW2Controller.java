@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.skillstorm.group8.taxprep.models.FormW2;
 
 import com.skillstorm.group8.taxprep.services.FormW2Service;
@@ -68,9 +67,14 @@ public class FormW2Controller {
     }
 
     // Deletes a FormW2
-    @DeleteMapping
-    public ResponseEntity<FormW2> deleteFormW2(@Valid @RequestBody FormW2 formW2) {
-        formW2Service.deleteFormW2(formW2);
+    @DeleteMapping("/delete/{email}/{ein}")
+    public ResponseEntity<FormW2> deleteFormW2(@PathVariable String email, @PathVariable String ein) {
+       List<FormW2> formW2 = formW2Service.findFormW2sByEmail(email);
+        for (FormW2 f : formW2) {
+            if (f.getEmployerEIN().equals(ein)) {
+                formW2Service.deleteFormW2(f);
+            }
+        }
         return ResponseEntity.noContent().build();
     }
 

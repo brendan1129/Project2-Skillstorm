@@ -42,14 +42,15 @@ public class Form1099 {
     public Form1099() {
     }
 
-    // Constructor w/o address
-    public Form1099(String id, String payerTIN, String email, double amountEarned, double amountWithheld, String businessName) {
-        this.id = id;
+    // Constructor w/o id
+   public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String businessName,
+            Address address) {
         this.payerTIN = payerTIN;
         this.email = email;
         this.amountEarned = amountEarned;
         this.amountWithheld = amountWithheld;
         this.businessName = businessName;
+        this.address = address;
     }
 
     
@@ -65,26 +66,7 @@ public class Form1099 {
         this.address = address;
     }
 
-    public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String payerFirstName,
-            String payerLastName) {
-        this.payerTIN = payerTIN;
-        this.email = email;
-        this.amountEarned = amountEarned;
-        this.amountWithheld = amountWithheld;
-        this.payerFirstName = payerFirstName;
-        this.payerLastName = payerLastName;
-    }
 
-    public Form1099(String payerTIN, String email, double amountEarned, double amountWithheld, String payerFirstName,
-            String payerLastName, Address address) {
-        this.payerTIN = payerTIN;
-        this.email = email;
-        this.amountEarned = amountEarned;
-        this.amountWithheld = amountWithheld;
-        this.payerFirstName = payerFirstName;
-        this.payerLastName = payerLastName;
-        this.address = address;
-    }
     
     /* GETTERS AND SETTERS */
 
