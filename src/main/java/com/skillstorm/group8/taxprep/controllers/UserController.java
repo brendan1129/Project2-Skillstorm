@@ -30,7 +30,7 @@ public class UserController {
     /* ATTRIBUTES */
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /* CRUD FUNCTIONS */
 
