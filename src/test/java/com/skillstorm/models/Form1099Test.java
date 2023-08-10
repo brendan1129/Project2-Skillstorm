@@ -1,4 +1,4 @@
-package test.models;
+package com.skillstorm.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Test;
 import com.skillstorm.group8.taxprep.models.Form1099;
 
 public class Form1099Test {
-        @Test
+    
+    // The model unit tests essentially test creation of an instance and setting attributes of the model
+
+    @Test
     public void testCreateForm1099() {
         // Create a new Form1099 object
         Form1099 form1099 = new Form1099("1234567890", "12-3456789", "john.doe@gmail.com", 100000, 2000, "Acme Corporation");

@@ -1,4 +1,4 @@
-package test.models;
+package com.skillstorm.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,4 @@
-package test.models;
+package com.skillstorm.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import com.skillstorm.group8.taxprep.models.FormW2;
 
 public class FormW2Test {
+
+    // The model unit tests essentially test creation of an instance and setting attributes of the model
 
     @Test
     public void testCreateFormW2() {
