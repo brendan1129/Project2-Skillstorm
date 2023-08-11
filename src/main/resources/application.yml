@@ -8,3 +8,8 @@ spring:
     output:
         ansi:
             enabled: ALWAYS
+    security:
+        filter:
+            order: 10
+jwt:
+    secret: askldfjdsivohoawe420sdf2l34132wsfSDF231SDF231#5D&&SAAw12321ewdt543yh
