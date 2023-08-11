@@ -1,6 +1,5 @@
 package com.skillstorm.group8.taxprep.models;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,6 +11,8 @@ import com.skillstorm.group8.taxprep.services.UserService;
 @Document(collection="taxforms")
 public class TaxForms {
 
+    /* ATTRIBUTES */
+
     @Autowired
     UserService userService;
 
@@ -20,8 +21,6 @@ public class TaxForms {
 
     @Autowired
     Form1099Service form1099Service;
-
-    /* ATTRIBUTES */
 
     @Id
     // User's email/login
@@ -39,18 +38,15 @@ public class TaxForms {
     // How much the user owe's or is getting refunded for the current tax year
     double result;
 
-
     /* CONSTRUCTORS */
 
     public TaxForms() {
         // Default constructor
     }
 
-
     public TaxForms(String email) {
         this.email = email;
     }
-
 
     public TaxForms(String email, int year, double earned, double withheld, double result) {
         this.email = email;
@@ -60,53 +56,43 @@ public class TaxForms {
         this.result = result;
     }
 
-
     /* GETTERS AND SETTERS */
 
     public String getEmail() {
         return email;
     }
 
-
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public int getYear() {
         return year;
     }
 
-
     public void setYear(int year) {
         this.year = year;
     }
-
 
     public double getEarned() {
         return earned;
     }
 
-
     public void setEarned(double earned) {
         this.earned = earned;
     }
-
 
     public double getWithheld() {
         return withheld;
     }
 
-
     public void setWithheld(double withheld) {
         this.withheld = withheld;
     }
 
-
     public double getResult() {
         return result;
     }
-
 
     public void setResult(double result) {
         this.result = result;
@@ -155,8 +141,4 @@ public class TaxForms {
             return false;
         return true;
     }
-
-    
-
-
 }
