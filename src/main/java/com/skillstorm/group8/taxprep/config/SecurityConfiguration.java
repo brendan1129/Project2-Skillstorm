@@ -66,7 +66,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http = http.csrf().disable().cors().disable();
+        http = http.csrf().disable();
+
+        http = http.cors().disable();
 
         http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
@@ -75,6 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                     }).and();
         http.authorizeRequests()
             .mvcMatchers("/auth/login").permitAll()
+            .mvcMatchers("/auth/register").permitAll()
                     .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }

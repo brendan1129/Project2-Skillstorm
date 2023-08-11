@@ -22,7 +22,7 @@ import com.skillstorm.group8.taxprep.services.TaxFormsService;
 
 @RestController
 @RequestMapping("/taxforms")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TaxFormsController {
 
     /* ATTRIBUTES */

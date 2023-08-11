@@ -23,7 +23,7 @@ import com.skillstorm.group8.taxprep.services.Form1099Service;
 
 @RestController
 @RequestMapping("/form1099")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class Form1099Controller {
 
     /* ATTRIBUTES */
