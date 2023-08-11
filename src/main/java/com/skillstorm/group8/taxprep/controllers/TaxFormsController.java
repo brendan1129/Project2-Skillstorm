@@ -39,13 +39,6 @@ public class TaxFormsController {
         return new ResponseEntity<List<TaxForms>>(taxForms, HttpStatus.OK);
     }
 
-    // Finds a user's tax forms by their email
-    @GetMapping("/email/{email}")
-    public ResponseEntity<TaxForms> findTaxFormsByEmail(@PathVariable String email) {
-        TaxForms taxForm = taxFormsService.findTaxFormsByEmail(email);
-        return new ResponseEntity<TaxForms>(taxForm, HttpStatus.OK);
-    }
-
     // Creates a new TaxForms
     @PostMapping("/taxforms")
     public ResponseEntity<TaxForms> createTaxForms(@Valid @RequestBody TaxForms TaxForms) {
@@ -71,4 +64,12 @@ public class TaxFormsController {
         return ResponseEntity.noContent().build();
     }
 
+    /* ADDITIONAL METHODS */
+
+    // Finds a user's tax forms by their email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<TaxForms> findTaxFormsByEmail(@PathVariable String email) {
+        TaxForms taxForm = taxFormsService.findTaxFormsByEmail(email);
+        return new ResponseEntity<TaxForms>(taxForm, HttpStatus.OK);
+    }
 }
