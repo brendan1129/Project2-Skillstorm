@@ -72,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http = http.cors().and();
 
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://jkersey-s3.s3-website-us-east-1.amazonaws.com:5173"); // Replace with your frontend domain
+        configuration.addAllowedOrigin("http://jkersey-s3.s3-website-us-east-1.amazonaws.com");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
 
