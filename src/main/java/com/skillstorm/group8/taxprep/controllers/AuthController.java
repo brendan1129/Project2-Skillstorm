@@ -22,7 +22,7 @@ import com.skillstorm.group8.taxprep.util.JwtUtil;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(exposedHeaders = "Authorization", origins = "http://localhost:5173")
+@CrossOrigin(exposedHeaders = "Authorization", origins = "*")
 public class AuthController {
 
     @Autowired

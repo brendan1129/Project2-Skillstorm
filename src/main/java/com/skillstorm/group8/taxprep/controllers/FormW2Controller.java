@@ -24,7 +24,7 @@ import com.skillstorm.group8.taxprep.services.FormW2Service;
 
 @RestController
 @RequestMapping("/formW2")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class FormW2Controller {
 
       /* ATTRIBUTES */

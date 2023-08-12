@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import com.skillstorm.group8.taxprep.filter.JwtFilter;
 
@@ -68,7 +69,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http = http.csrf().disable();
 
-        http = http.cors().disable();
+        http = http.cors().and();
+
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:5173"); // Replace with your frontend domain
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+
+        //http = http.cors(configuration);
 
         http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
@@ -78,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
             .mvcMatchers("/auth/login").permitAll()
             .mvcMatchers("/auth/register").permitAll()
+            .mvcMatchers("/users/new").permitAll()
                     .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }

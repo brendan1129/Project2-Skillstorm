@@ -43,6 +43,11 @@ public class User implements Serializable {
         // Default constructor
     }
 
+    public User(String email) {
+        this.email = email;
+        // Default constructor
+    }
+
     public User(String email, String ssn, String firstName, String lastName, Address address,
             Date dateOfBirth, String maritalStatus) {
         this.email = email;
