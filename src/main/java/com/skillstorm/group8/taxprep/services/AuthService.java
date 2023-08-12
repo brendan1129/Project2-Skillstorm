@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.group8.taxprep.models.Auth;
+import com.skillstorm.group8.taxprep.models.TaxForms;
+import com.skillstorm.group8.taxprep.models.User;
 import com.skillstorm.group8.taxprep.repositories.AuthRepository;
 
 @Service
@@ -20,6 +22,12 @@ public class AuthService implements UserDetailsService{
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    TaxFormsService taxFormsService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -38,6 +46,14 @@ public class AuthService implements UserDetailsService{
         auth.setRole("ROLE_USER");
 
         authRepository.save(auth);
+
+        User user = new User(auth.getEmail());      
+        TaxForms taxforms = new TaxForms(auth.getEmail(), 2022, 0.00, 0.00, 0.00);
+        System.out.println(taxforms);
+
+        userService.saveUser(user);
+
+        taxFormsService.taxCalculation(taxforms);
 
     }
 

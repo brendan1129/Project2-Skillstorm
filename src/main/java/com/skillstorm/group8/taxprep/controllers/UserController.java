@@ -24,7 +24,7 @@ import com.skillstorm.group8.taxprep.services.UserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://http://http://jkersey-s3.s3-website-us-east-1.amazonaws.com:5173", allowedHeaders = "*", allowCredentials = "true")
 public class UserController {
 
     /* ATTRIBUTES */
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     // Creates a new user
-    @PostMapping("/user")
+    @PostMapping("/new")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         // Save the user
         userService.saveUser(user);
