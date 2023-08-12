@@ -24,7 +24,7 @@ import com.skillstorm.group8.taxprep.services.UserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "http://http://http://jkersey-s3.s3-website-us-east-1.amazonaws.com:5173", allowedHeaders = "*", allowCredentials = "true")
 public class UserController {
 
     /* ATTRIBUTES */
