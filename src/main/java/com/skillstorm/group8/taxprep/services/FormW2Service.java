@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.skillstorm.group8.taxprep.models.FormW2;
 import com.skillstorm.group8.taxprep.models.TaxForms;
 import com.skillstorm.group8.taxprep.repositories.FormW2Repository;
@@ -41,13 +42,17 @@ public class FormW2Service {
         FormW2 newFormW2 = formW2Repository.save(formW2);
 
         // checks for an existing tax form, makes one if not present, and then updates tax totals with info from the new form
-         Optional<TaxForms> optionalExistingTaxForms = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
+        Optional<TaxForms> optionalExistingTaxForms = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
         if (!optionalExistingTaxForms.isPresent()) {
-            TaxForms taxForms = new TaxForms(formW2.getEmail());
-            taxForms = taxFormsRepository.save(taxFormsService.taxCalculation(taxForms));
+            setTimeout(() -> {
+                TaxForms taxForms = new TaxForms(formW2.getEmail());
+                taxForms = taxFormsRepository.save(taxFormsService.taxCalculation(taxForms));
+            }, 500);
         }
         else {
-            taxFormsRepository.save(taxFormsService.taxCalculation(optionalExistingTaxForms.get()));
+            setTimeout(() -> {
+                taxFormsRepository.save(taxFormsService.taxCalculation(optionalExistingTaxForms.get()));
+            }, 500);
         }
         return newFormW2;
     }
@@ -66,8 +71,10 @@ public class FormW2Service {
         FormW2 existingFormW2 = formW2Repository.save(formW2);
 
         // recalculates the total tax amounts based on the new updates
+        setTimeout(() -> {
         Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
-        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+            taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        }, 500);
 
         return existingFormW2;
     }
@@ -77,8 +84,23 @@ public class FormW2Service {
         formW2Repository.delete(formW2);
 
         // recalculates the total tax amounts after W2 deletion
-        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
-        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        setTimeout(() -> {
+            Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(formW2.getEmail());
+            taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        }, 500);
+    }
+
+    // small timeout to ensure database updates
+    public static void setTimeout(Runnable runnable, int delay){
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                runnable.run();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
     }
     
 }

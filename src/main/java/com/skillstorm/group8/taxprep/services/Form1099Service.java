@@ -43,11 +43,15 @@ public class Form1099Service {
         // checks for an existing tax form, makes one if not present, and then updates tax totals with info from the new form
          Optional<TaxForms> optionalExistingTaxForms = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
         if (!optionalExistingTaxForms.isPresent()) {
-            TaxForms taxForms = new TaxForms(form1099.getEmail());
-            taxForms = taxFormsRepository.save(taxFormsService.taxCalculation(taxForms));
+            setTimeout(() -> {
+                TaxForms taxForms = new TaxForms(form1099.getEmail());
+                taxForms = taxFormsRepository.save(taxFormsService.taxCalculation(taxForms));
+            }, 500);
         }
         else {
-            taxFormsRepository.save(taxFormsService.taxCalculation(optionalExistingTaxForms.get()));
+            setTimeout(() -> {
+                taxFormsRepository.save(taxFormsService.taxCalculation(optionalExistingTaxForms.get()));
+            }, 500);
         }
         return newForm1099;
     }
@@ -66,8 +70,10 @@ public class Form1099Service {
         Form1099 existingForm1099 = form1099Repository.save(form1099);
 
         // recalculates the total tax amounts based on the new updates
-        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
-        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        setTimeout(() -> {
+            Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
+            taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        }, 500);
 
         return existingForm1099;
     }
@@ -76,8 +82,23 @@ public class Form1099Service {
         form1099Repository.delete(form1099);
 
         // recalculates the total tax amounts after 1099 deletion
-        Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
-        taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        setTimeout(() -> {
+            Optional<TaxForms> taxForm = taxFormsRepository.findTaxFormsByEmail(form1099.getEmail());
+            taxFormsRepository.save(taxFormsService.taxCalculation(taxForm.get()));
+        }, 500);
+    }
+
+    // small timeout to ensure database updates
+    public static void setTimeout(Runnable runnable, int delay){
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                runnable.run();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
     }
     
 }

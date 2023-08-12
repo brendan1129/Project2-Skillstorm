@@ -89,7 +89,10 @@ public class TaxFormsService {
 
     public TaxForms taxCalculation (TaxForms taxForms) {
 
+        
         double taxDue, earned = 0, withheld = 0;
+        taxForms.setEarned(earned);
+        taxForms.setWithheld(withheld);
         
         User user = new User();
         Optional<User> optionalUser = userRepository.findByEmail(taxForms.getEmail());
@@ -105,7 +108,6 @@ public class TaxFormsService {
             for (FormW2 w : allW2Forms.get()) {
                 earned += w.getAmountEarned();
                 withheld += w.getAmountWithheld();
-                System.out.println(earned);
         }
         }
 
@@ -219,5 +221,9 @@ public class TaxFormsService {
 
         return taxForms;
     }
+
+    
+
+    
     
 }
