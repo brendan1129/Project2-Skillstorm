@@ -32,8 +32,6 @@ public class Form1099RepositoryTest {
         double amountEarned = 10000;
         double amountWithheld = 2000;
         String businessName = "Acme Corporation";
-        String payerFirstName = "John";
-        String payerLastName = "Doe";
         Address address = new Address(12345, "123 Main Street", "Anytown", "CA", 12345);
         Form1099 form1099 = new Form1099("12345", payerTIN, email, amountEarned, amountWithheld, businessName, address);
         form1099Repository.insert(form1099);
@@ -56,8 +54,6 @@ public class Form1099RepositoryTest {
         double amountEarned = 10000;
         double amountWithheld = 2000;
         String businessName = "Acme Corporation";
-        String payerFirstName = "John";
-        String payerLastName = "Doe";
         Address address = new Address(12345, "123 Main Street", "Anytown", "CA", 12345);
         Form1099 form1099 = new Form1099("12345", payerTIN, email, amountEarned, amountWithheld, businessName, address);
         form1099Repository.insert(form1099);
